@@ -1,0 +1,359 @@
+:host {
+  display: block;
+
+  --navbar-bg: #111827;
+  --navbar-bg-hover: #1f2937;
+  --navbar-border: #374151;
+
+  --text-primary: #ffffff;
+  --text-secondary: #d1d5db;
+  --text-muted: #9ca3af;
+
+  --accent: #60a5fa;
+  --accent-bg: #1e3a5f;
+}
+
+/* ================================
+   NAVBAR
+================================ */
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  width: 100%;
+
+  background-color: #111827 !important;
+  color: #ffffff;
+
+  border-bottom: 1px solid #374151;
+
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Arial,
+    sans-serif;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+  -webkit-font-smoothing: antialiased;
+}
+
+
+/* ================================
+   NAVBAR CONTAINER
+================================ */
+
+.navbar-inner {
+  width: 100%;
+  max-width: 1280px;
+
+  height: 72px;
+
+  margin: 0 auto;
+  padding: 0 32px;
+
+  display: flex;
+  align-items: center;
+
+  background-color: #111827;
+}
+
+
+/* ================================
+   BRAND
+================================ */
+
+.brand {
+  display: flex;
+  align-items: center;
+
+  gap: 14px;
+
+  color: #ffffff !important;
+
+  text-decoration: none;
+
+  cursor: pointer;
+}
+
+.brand:hover {
+  color: #ffffff !important;
+}
+
+
+/* Brand name */
+
+.brand-name {
+  color: #ffffff !important;
+
+  font-size: 20px;
+  font-weight: 700;
+
+  line-height: 1;
+
+  letter-spacing: -0.03em;
+}
+
+
+/* Brand description */
+
+.brand-tagline {
+  color: #d1d5db !important;
+
+  padding-left: 14px;
+
+  border-left: 1px solid #4b5563;
+
+  font-size: 13px;
+  font-weight: 400;
+
+  line-height: 24px;
+}
+
+
+/* ================================
+   DESKTOP MENU
+================================ */
+
+.desktop-menu {
+  margin-left: auto;
+
+  display: flex;
+  align-items: center;
+
+  gap: 6px;
+}
+
+
+/* Menu item */
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 40px;
+
+  padding: 0 14px;
+
+  border-radius: 7px;
+
+  color: #d1d5db !important;
+
+  background: transparent;
+
+  text-decoration: none;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+
+/* Hover */
+
+.menu-item:hover {
+  color: #ffffff !important;
+
+  background-color: #1f2937;
+}
+
+
+/* Active */
+
+.menu-item.active {
+  color: #ffffff !important;
+
+  background-color: #1e3a5f;
+
+  font-weight: 600;
+}
+
+
+/* Active hover */
+
+.menu-item.active:hover {
+  background-color: #264b75;
+
+  color: #ffffff !important;
+}
+
+
+/* ================================
+   MOBILE BUTTON
+================================ */
+
+.menu-toggle {
+  display: none;
+
+  width: 40px;
+  height: 40px;
+
+  margin-left: auto;
+
+  padding: 8px;
+
+  border: 1px solid #4b5563;
+
+  border-radius: 8px;
+
+  background-color: #1f2937;
+
+  cursor: pointer;
+}
+
+
+/* Hamburger */
+
+.menu-toggle span {
+  display: block;
+
+  width: 19px;
+  height: 2px;
+
+  margin: 4px auto;
+
+  background-color: #ffffff;
+
+  border-radius: 999px;
+}
+
+
+/* ================================
+   MOBILE MENU
+================================ */
+
+.mobile-menu {
+  display: none;
+
+  width: 100%;
+
+  background-color: #111827;
+
+  border-top: 1px solid #374151;
+}
+
+
+.mobile-menu.open {
+  display: flex;
+
+  flex-direction: column;
+}
+
+
+/* Mobile links */
+
+.mobile-menu-item {
+  display: flex;
+  align-items: center;
+
+  min-height: 50px;
+
+  padding: 0 24px;
+
+  color: #d1d5db !important;
+
+  background-color: #111827;
+
+  border-bottom: 1px solid #374151;
+
+  text-decoration: none;
+
+  font-size: 14px;
+  font-weight: 500;
+}
+
+
+/* Mobile hover */
+
+.mobile-menu-item:hover {
+  color: #ffffff !important;
+
+  background-color: #1f2937;
+}
+
+
+/* Mobile active */
+
+.mobile-menu-item.active {
+  color: #ffffff !important;
+
+  background-color: #1e3a5f;
+}
+
+.brand-logo {
+  width: 120px;
+  height: auto;
+  object-fit: contain;
+}
+
+/* ================================
+   TABLET
+================================ */
+
+@media (max-width: 900px) {
+
+  .navbar-inner {
+    padding: 0 24px;
+  }
+
+  .menu-item {
+    padding: 0 10px;
+  }
+}
+
+
+/* ================================
+   MOBILE
+================================ */
+
+@media (max-width: 768px) {
+
+  .navbar-inner {
+    height: 64px;
+
+    padding: 0 20px;
+  }
+
+  .brand-tagline {
+    display: none;
+  }
+
+  .brand-name {
+    font-size: 18px;
+  }
+
+  .desktop-menu {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+}
+
+
+/* ================================
+   SMALL MOBILE
+================================ */
+
+@media (max-width: 480px) {
+
+  .navbar-inner {
+    height: 60px;
+
+    padding: 0 16px;
+  }
+
+  .brand-name {
+    font-size: 17px;
+  }
+}
