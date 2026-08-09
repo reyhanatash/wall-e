@@ -1,1 +1,139 @@
-<p>review.component works!</p>
+<div class="page-shell">
+  <div class="workspace-card">
+    <div class="header-row">
+      <div class="title-block">
+        <h1>New review workspace</h1>
+        <p>
+          Configure repository access, define the review prompt, and run a reproducible AI code review with a
+          transparent score and line-level findings.
+        </p>
+      </div>
+
+      <div class="security-note">
+        <div class="security-label">SECURITY NOTE</div>
+        <div class="security-text">
+          Repo tokens stay in memory only and are never persisted locally.
+        </div>
+      </div>
+    </div>
+
+    <div class="top-fields">
+      <div class="field-group repo-field">
+        <label>REPOSITORY URL</label>
+        <input
+          type="text"
+          [value]="repositoryUrl"
+          placeholder="https://github.com/org/repo"
+          (input)="onRepoUrlChange($any($event.target).value)"
+        />
+      </div>
+
+      <div class="field-group branch-field">
+        <label>BRANCH</label>
+        <div class="branch-box">
+          <span class="branch-icon">⎇</span>
+          <span class="branch-value">main</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="advanced-card">
+      <button
+        type="button"
+        class="advanced-header"
+        (click)="toggleAdvanced()"
+        [attr.aria-expanded]="isAdvancedOpen"
+      >
+        <div>
+          <div class="advanced-title">Advanced</div>
+          <div class="advanced-subtitle">Optional private repository credentials and retry behavior.</div>
+        </div>
+
+        <div class="chevron" [class.open]="isAdvancedOpen">
+          <span></span>
+          <span></span>
+        </div>
+      </button>
+
+      <div class="advanced-content" [class.open]="isAdvancedOpen">
+        <div class="advanced-inner">
+          <div class="advanced-grid">
+            <div class="field-group auth-field">
+              <label>AUTH TOKEN</label>
+              <input
+                type="password"
+                placeholder="Optional token for private repos"
+                [value]="authToken"
+                (input)="onAuthTokenChange($any($event.target).value)"
+              />
+            </div>
+
+            <div class="retry-box">
+              <div class="retry-text">
+                <div class="retry-title">Retry failed steps</div>
+                <div class="retry-subtitle">Attempt partial recovery during analysis.</div>
+              </div>
+
+              <label class="switch">
+                <input type="checkbox" [checked]="retryFailedSteps" (change)="toggleRetry()" />
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="field-group review-prompt-field">
+      <label>REVIEW PROMPT</label>
+      <textarea
+        rows="7"
+        [value]="reviewPrompt"
+        placeholder="Focus on null safety and defensive checks"
+        (input)="onPromptChange($any($event.target).value)"
+      ></textarea>
+    </div>
+
+    <div class="chips-wrap">
+      <button
+        type="button"
+        class="chip"
+        *ngFor="let chip of chips"
+        [class.selected]="isChipSelected(chip)"
+        (click)="toggleChip(chip)"
+      >
+        {{ chip }}
+      </button>
+    </div>
+
+    <div class="bottom-row">
+      <div class="slider-section">
+        <div class="slider-label-row">
+          <span class="slider-label">REVIEW STRICTNESS</span>
+          <span class="slider-value">{{ strictness }} / 10</span>
+        </div>
+
+        <div class="slider-track-wrap">
+          <input
+            class="range-input"
+            type="range"
+            min="0"
+            max="10"
+            step="1"
+            [value]="strictness"
+            (input)="onStrictnessChange($any($event.target).value)"
+          />
+          <div class="range-marks">
+            <span>0</span>
+            <span>10</span>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="run-button" (click)="runReview()">
+        <span class="run-icon">◎</span>
+        Run Review
+      </button>
+    </div>
+  </div>
+</div>
