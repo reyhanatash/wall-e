@@ -1,139 +1,330 @@
 <div class="page-shell">
   <div class="workspace-card">
+
     <div class="header-row">
       <div class="title-block">
         <h1>New review workspace</h1>
+
         <p>
-          Configure repository access, define the review prompt, and run a reproducible AI code review with a
-          transparent score and line-level findings.
+          Configure repository access, select a Pull Request, define the review
+          prompt, and run a reproducible AI code review.
         </p>
       </div>
 
       <div class="security-note">
         <div class="security-label">SECURITY NOTE</div>
+
         <div class="security-text">
           Repo tokens stay in memory only and are never persisted locally.
         </div>
       </div>
     </div>
 
+
     <div class="top-fields">
+
       <div class="field-group repo-field">
         <label>REPOSITORY URL</label>
-        <input
-          type="text"
-          [value]="repositoryUrl"
-          placeholder="https://github.com/org/repo"
-          (input)="onRepoUrlChange($any($event.target).value)"
-        />
+
+        <input type="text" [value]="repositoryUrl" placeholder="https://github.com/reyhanatash/wall-e"
+          (input)="onRepoUrlChange($any($event.target).value)" />
       </div>
+
 
       <div class="field-group branch-field">
         <label>BRANCH</label>
+
         <div class="branch-box">
           <span class="branch-icon">⎇</span>
-          <span class="branch-value">main</span>
+          <span class="branch-value">{{ branch }}</span>
         </div>
       </div>
+
     </div>
 
-    <div class="advanced-card">
-      <button
-        type="button"
-        class="advanced-header"
-        (click)="toggleAdvanced()"
-        [attr.aria-expanded]="isAdvancedOpen"
-      >
+
+    <div class="pull-request-card">
+
+      <div class="pr-header">
+
         <div>
-          <div class="advanced-title">Advanced</div>
-          <div class="advanced-subtitle">Optional private repository credentials and retry behavior.</div>
+          <div class="pr-title">
+            Pull Request
+          </div>
+
+          <div class="pr-subtitle">
+            Select the Pull Request that should be analyzed by WALL-E.
+          </div>
         </div>
+
+
+        <button type="button" class="load-pr-button" (click)="loadPullRequests()" [disabled]="isLoadingPullRequests">
+          {{
+          isLoadingPullRequests
+          ? 'Loading...'
+          : 'Load Pull Requests'
+          }}
+        </button>
+
+      </div>
+
+
+      <div class="pr-select-wrapper" *ngIf="pullRequests.length">
+
+        <div class="field-group">
+
+          <label>PULL REQUEST</label>
+
+          <select class="pr-select" [value]="selectedPullRequest?.number || ''"
+            (change)="onPullRequestChange($any($event.target).value)">
+
+            <option value="" disabled>
+              Select a Pull Request
+            </option>
+
+            <option *ngFor="let pr of pullRequests" [value]="pr.number">
+              #{{ pr.number }} · {{ pr.title }}
+            </option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+
+      <div class="selected-pr" *ngIf="selectedPullRequest as pr">
+
+        <div class="selected-pr-header">
+
+          <span class="pr-number">
+            #{{ pr.number }}
+          </span>
+
+          <span class="pr-state">
+            {{ pr.state }}
+          </span>
+
+        </div>
+
+
+        <div class="selected-pr-title">
+          {{ pr.title }}
+        </div>
+
+
+        <div class="selected-pr-meta">
+
+          <span>
+            Author:
+            {{ pr.author }}
+          </span>
+
+          <span>
+            {{ pr.branch }}
+            →
+            {{ pr.base_branch }}
+          </span>
+
+        </div>
+
+
+        <div class="selected-pr-body" *ngIf="pr.body">
+          {{ pr.body }}
+        </div>
+
+      </div>
+
+
+      <div class="empty-pr-state" *ngIf="!pullRequests.length && !isLoadingPullRequests">
+
+        <div class="empty-pr-title">
+          No Pull Request loaded
+        </div>
+
+        <div class="empty-pr-subtitle">
+          Load Pull Requests from the selected repository to continue.
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="advanced-card">
+
+      <button type="button" class="advanced-header" (click)="toggleAdvanced()" [attr.aria-expanded]="isAdvancedOpen">
+
+        <div>
+
+          <div class="advanced-title">
+            Advanced
+          </div>
+
+          <div class="advanced-subtitle">
+            Optional private repository credentials and retry behavior.
+          </div>
+
+        </div>
+
 
         <div class="chevron" [class.open]="isAdvancedOpen">
           <span></span>
           <span></span>
         </div>
+
       </button>
+
 
       <div class="advanced-content" [class.open]="isAdvancedOpen">
+
         <div class="advanced-inner">
+
           <div class="advanced-grid">
+
             <div class="field-group auth-field">
-              <label>AUTH TOKEN</label>
-              <input
-                type="password"
-                placeholder="Optional token for private repos"
-                [value]="authToken"
-                (input)="onAuthTokenChange($any($event.target).value)"
-              />
+
+              <label>
+                AUTH TOKEN
+              </label>
+
+              <input type="password" placeholder="Optional token for private repos" [value]="authToken"
+                (input)="onAuthTokenChange($any($event.target).value)" />
+
             </div>
+
 
             <div class="retry-box">
+
               <div class="retry-text">
-                <div class="retry-title">Retry failed steps</div>
-                <div class="retry-subtitle">Attempt partial recovery during analysis.</div>
+
+                <div class="retry-title">
+                  Retry failed steps
+                </div>
+
+                <div class="retry-subtitle">
+                  Attempt partial recovery during analysis.
+                </div>
+
               </div>
 
+
               <label class="switch">
+
                 <input type="checkbox" [checked]="retryFailedSteps" (change)="toggleRetry()" />
+
                 <span class="slider"></span>
+
               </label>
+
             </div>
+
           </div>
+
         </div>
+
       </div>
+
     </div>
+
 
     <div class="field-group review-prompt-field">
-      <label>REVIEW PROMPT</label>
-      <textarea
-        rows="7"
-        [value]="reviewPrompt"
-        placeholder="Focus on null safety and defensive checks"
-        (input)="onPromptChange($any($event.target).value)"
-      ></textarea>
+
+      <label>
+        REVIEW PROMPT
+      </label>
+
+      <textarea rows="7" [value]="reviewPrompt" placeholder="Focus on null safety and defensive checks"
+        (input)="onPromptChange($any($event.target).value)"></textarea>
+
     </div>
+
 
     <div class="chips-wrap">
-      <button
-        type="button"
-        class="chip"
-        *ngFor="let chip of chips"
-        [class.selected]="isChipSelected(chip)"
-        (click)="toggleChip(chip)"
-      >
+
+      <button type="button" class="chip" *ngFor="let chip of chips" [class.selected]="isChipSelected(chip)"
+        (click)="toggleChip(chip)">
         {{ chip }}
       </button>
+
     </div>
 
+
     <div class="bottom-row">
+
       <div class="slider-section">
+
         <div class="slider-label-row">
-          <span class="slider-label">REVIEW STRICTNESS</span>
-          <span class="slider-value">{{ strictness }} / 10</span>
+
+          <span class="slider-label">
+            REVIEW STRICTNESS
+          </span>
+
+          <span class="slider-value">
+            {{ strictness }} / 10
+          </span>
+
         </div>
 
+
         <div class="slider-track-wrap">
-          <input
-            class="range-input"
-            type="range"
-            min="0"
-            max="10"
-            step="1"
-            [value]="strictness"
-            (input)="onStrictnessChange($any($event.target).value)"
-          />
+
+          <input class="range-input" type="range" min="0" max="10" step="1" [value]="strictness"
+            (input)="onStrictnessChange($any($event.target).value)" />
+
           <div class="range-marks">
             <span>0</span>
             <span>10</span>
           </div>
+
         </div>
+
       </div>
 
-      <button type="button" class="run-button" (click)="runReview()">
-        <span class="run-icon">◎</span>
-        Run Review
+
+      <button type="button" class="run-button" (click)="runReview()"
+        [disabled]="isRunningReview || !selectedPullRequest">
+
+        <span class="run-icon">
+          ◎
+        </span>
+
+        {{
+        isRunningReview
+        ? 'Running AI Review...'
+        : 'Run Review'
+        }}
+
       </button>
+
     </div>
+
+
+    <div class="error-message" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </div>
+
+
+    <div class="review-result" *ngIf="reviewResult">
+
+      <div class="result-header">
+
+        <div>
+          <div class="result-title">
+            Review Result
+          </div>
+
+          <div class="result-subtitle">
+            AI-assisted analysis completed for the selected Pull Request.
+          </div>
+        </div>
+
+      </div>
+
+
+      <pre class="result-content">{{ reviewResult | json }}</pre>
+
+    </div>
+
   </div>
 </div>
