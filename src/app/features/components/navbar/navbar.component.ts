@@ -13,7 +13,7 @@ export class NavbarComponent {
   isMenuOpen = false;
 
   menuItems = [
-    { label: 'Dashboard', link: '/' }
+    { label: 'Dashboard', link: '/ }
     { label: 'Repositories', link: '/repositories' },
     { label: 'Reviews', link: '/reviews' },
     { label: 'History', link: '/history' }
