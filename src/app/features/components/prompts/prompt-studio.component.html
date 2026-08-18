@@ -1,0 +1,136 @@
+<div class="prompt-page text-light min-vh-100">
+  <div class="container-fluid h-100 py-3 py-lg-4">
+    <div class="row g-3 g-xl-4 min-vh-100 align-items-stretch">
+      <div class="col-12 col-lg-8 d-flex">
+        <section class="panel-surface w-100 rounded-4 p-3 p-md-4 p-xl-4 d-flex flex-column shadow-lg">
+          <div class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-between gap-3 mb-4">
+            <div>
+              <h1 class="h3 mb-1 fw-semibold">Prompt Editor</h1>
+              <p class="text-secondary mb-0">Create, edit, and manage your saved prompts in one place.</p>
+            </div>
+            <button
+              type="button"
+              class="btn btn-outline-light"
+              (click)="clearEditor()"
+              [disabled]="!promptForm.getRawValue().title && !promptForm.getRawValue().content && selectedPromptId() === null"
+              aria-label="Clear prompt editor"
+            >
+              <i class="fa-solid fa-eraser me-2"></i>Clear
+            </button>
+          </div>
+
+          <form class="d-flex flex-column flex-grow-1 gap-3" [formGroup]="promptForm" (ngSubmit)="savePrompt()">
+            <div>
+              <label for="promptTitle" class="form-label text-uppercase small fw-semibold text-secondary">Prompt title</label>
+              <input
+                id="promptTitle"
+                type="text"
+                class="form-control form-control-lg editor-input"
+                formControlName="title"
+                placeholder="Enter prompt name"
+                aria-describedby="promptTitleHelp promptTitleError"
+              />
+              <div id="promptTitleHelp" class="form-text text-secondary">Use a short, descriptive title for quick scanning.</div>
+              @if (promptForm.controls.title.invalid && promptForm.controls.title.touched) {
+                <div id="promptTitleError" class="text-danger small mt-1">A title is required.</div>
+              }
+            </div>
+
+            <div class="d-flex flex-column flex-grow-1 min-editor-area">
+              <label for="promptContent" class="form-label text-uppercase small fw-semibold text-secondary">Prompt content</label>
+              <textarea
+                id="promptContent"
+                class="form-control editor-textarea flex-grow-1"
+                formControlName="content"
+                placeholder="Write your long-form prompt here..."
+                aria-describedby="promptContentHelp promptContentError"
+              ></textarea>
+              <div id="promptContentHelp" class="form-text text-secondary">Supports long-form editing and detailed prompt instructions.</div>
+              @if (promptForm.controls.content.invalid && promptForm.controls.content.touched) {
+                <div id="promptContentError" class="text-danger small mt-1">Prompt content is required.</div>
+              }
+            </div>
+
+            <div class="pt-2">
+              <button type="submit" class="btn btn-primary btn-lg w-100 py-3 fw-semibold" [attr.aria-label]="saveLabel()">
+                <i class="fa-solid fa-floppy-disk me-2"></i>{{ saveLabel() }}
+              </button>
+            </div>
+          </form>
+        </section>
+      </div>
+
+      <div class="col-12 col-lg-4 d-flex">
+        <aside class="panel-surface w-100 rounded-4 p-3 p-md-4 shadow-lg d-flex flex-column" aria-label="Saved prompts panel">
+          <div class="d-flex align-items-center justify-content-between gap-3 mb-3">
+            <div>
+              <h2 class="h4 mb-1 fw-semibold">Saved Prompts</h2>
+              <p class="text-secondary mb-0 small">Select a prompt to load it into the editor.</p>
+            </div>
+            <span class="badge text-bg-secondary rounded-pill px-3 py-2">{{ prompts().length }}</span>
+          </div>
+
+          <div class="prompt-list d-flex flex-column gap-3 pe-1" tabindex="0" aria-label="Scrollable list of saved prompts">
+            @for (prompt of prompts(); track prompt.id) {
+              <button
+                type="button"
+                class="prompt-card btn text-start w-100 border-0 rounded-4 p-3"
+                [class.selected]="isSelected(prompt.id)"
+                (click)="selectPrompt(prompt)"
+                [attr.aria-pressed]="isSelected(prompt.id)"
+                [attr.aria-label]="'Load prompt ' + prompt.title"
+              >
+                <div class="d-flex align-items-start justify-content-between gap-3">
+                  <div class="min-w-0 flex-grow-1">
+                    <div class="fw-semibold text-truncate mb-1">{{ prompt.title }}</div>
+                    <div class="small text-secondary preview-clamp">{{ prompt.content }}</div>
+                  </div>
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-danger flex-shrink-0 rounded-circle delete-btn"
+                    (click)="requestDelete(prompt, $event)"
+                    [attr.aria-label]="'Delete prompt ' + prompt.title"
+                  >
+                    <i class="fa-solid fa-xmark"></i>
+                  </button>
+                </div>
+              </button>
+            } @empty {
+              <div class="text-center text-secondary border rounded-4 p-4">No saved prompts yet.</div>
+            }
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  @if (pendingDeletePrompt() !== null) {
+    <div class="modal-backdrop-custom"></div>
+    <div
+      class="modal d-block"
+      tabindex="-1"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="deletePromptTitle"
+      aria-describedby="deletePromptDescription"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark text-light border border-secondary shadow-lg rounded-4">
+          <div class="modal-header border-secondary">
+            <h2 id="deletePromptTitle" class="modal-title h5 mb-0">Confirm deletion</h2>
+            <button type="button" class="btn-close btn-close-white" (click)="cancelDelete()" aria-label="Close dialog"></button>
+          </div>
+          <div class="modal-body">
+            <p id="deletePromptDescription" class="mb-0">
+              Delete <span class="fw-semibold">{{ pendingDeletePrompt()?.title }}</span>? This action cannot be undone.
+            </p>
+          </div>
+          <div class="modal-footer border-secondary">
+            <button type="button" class="btn btn-outline-light" (click)="cancelDelete()">Cancel</button>
+            <button type="button" class="btn btn-danger" (click)="confirmDelete()">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>
