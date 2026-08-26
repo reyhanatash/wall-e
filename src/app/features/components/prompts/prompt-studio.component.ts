@@ -54,6 +54,15 @@ export class PromptStudioComponent {
     );
 
     this.selectedPromptId.set(savedPrompt.id);
+
+    this.promptStore.savePrompt(
+      {
+        title: formValue.title.trim(),
+        content: formValue.content.trim()
+      },
+      this.selectedPromptId()
+    );
+
     this.promptForm.setValue({
       title: '',
       content: ''
@@ -108,4 +117,5 @@ export class PromptStudioComponent {
   trackPrompt(index: number, prompt: Prompt): number {
     return prompt.id;
   }
+  
 }

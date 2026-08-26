@@ -43,7 +43,7 @@
     [class.open]="isMenuOpen">
     <a
       *ngFor="let item of menuItems"
-      [href]="item.link"
+      [href]= "item.link"
       class="mobile-menu-item"
       (click)="closeMenu()">
       {{ item.label }}

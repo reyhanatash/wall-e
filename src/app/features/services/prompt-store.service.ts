@@ -1,9 +1,14 @@
-import { Injectable, computed, signal } from '@angular/core';
+import { Inject, Injectable, computed, signal } from '@angular/core';
 import { Prompt } from '../models/prompt.model';
+import { PromptApiService } from './prompt-api.service';
+import { PromptApiResponse } from '../models/PromptApiResponse';
 
 
 @Injectable({ providedIn: 'root' })
 export class PromptStoreService {
+
+  private readonly promptApi = Inject(PromptApiService);
+
   private readonly promptsState = signal<Prompt[]>([
     {
       id: 1,
@@ -23,6 +28,26 @@ export class PromptStoreService {
   ]);
 
   readonly prompts = computed(() => this.promptsState());
+  private readonly _prompts = signal<Prompt[]>([]);
+
+  loadPrompts(): void {
+    this.promptApi.getPrompts().subscribe({
+      next: (response: PromptApiResponse[]) => {
+        const prompts: Prompt[] = response
+          .filter(prompt => prompt.active)
+          .map(prompt => ({
+            id: prompt.id,
+            title: prompt.name,
+            content: prompt.command
+          }));
+
+        this._prompts.set(prompts);
+      },
+      error: (error: unknown) => {
+        console.error('Failed to load prompts', error);
+      }
+    });
+  }
 
   savePrompt(prompt: Omit<Prompt, 'id'>, selectedId: number | null): Prompt {
     if (selectedId !== null) {
