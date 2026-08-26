@@ -1,0 +1,732 @@
+:host {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+
+  --page-bg: #0d131d;
+  --card-bg: #1a2230;
+  --card-bg-light: #202938;
+  --border: #303b4d;
+
+  --text-primary: #f3f6fb;
+  --text-secondary: #8f9caf;
+
+  --blue: #2d6df6;
+  --blue-dark: #244f9f;
+  --cyan: #00a8d0;
+
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+}
+
+
+/* =========================================================
+   MAIN SECTION
+   ========================================================= */
+
+.review-section {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+
+  padding: 20px;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1.88fr) minmax(330px, 1fr);
+  gap: 24px;
+
+  box-sizing: border-box;
+
+  color: var(--text-primary);
+}
+
+
+/* =========================================================
+   HERO CARD
+   ========================================================= */
+
+.hero-card {
+  position: relative;
+
+  min-height: 536px;
+
+  overflow: hidden;
+
+  border: 1px solid var(--border);
+  border-radius: 12px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #101721 0%,
+      #131b27 53%,
+      #1a2432 100%
+    );
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   DECORATIVE BACKGROUND
+   ========================================================= */
+
+.hero-background {
+  position: absolute;
+  inset: 0 0 auto 0;
+
+  height: 256px;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 75% 25%,
+      rgba(38, 93, 160, 0.08),
+      transparent 35%
+    ),
+    linear-gradient(
+      135deg,
+      #111923 0%,
+      #0d141e 100%
+    );
+}
+
+
+/*
+ * Large diagonal futuristic shapes
+ */
+
+.decor {
+  position: absolute;
+
+  transform: rotate(-32deg);
+
+  border: 1px solid rgba(75, 143, 217, 0.16);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(38, 84, 135, 0.42),
+      rgba(22, 52, 91, 0.08)
+    );
+
+  box-shadow:
+    inset 0 0 18px rgba(43, 112, 181, 0.08);
+}
+
+.decor-1 {
+  width: 112px;
+  height: 42px;
+
+  right: 146px;
+  top: 6px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(48, 106, 162, 0.65),
+      rgba(22, 56, 101, 0.22)
+    );
+}
+
+.decor-2 {
+  width: 102px;
+  height: 38px;
+
+  right: 68px;
+  top: 50px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(39, 75, 153, 0.62),
+      rgba(20, 40, 88, 0.18)
+    );
+}
+
+.decor-3 {
+  width: 84px;
+  height: 40px;
+
+  right: 4px;
+  top: 82px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(54, 93, 169, 0.58),
+      rgba(18, 43, 84, 0.15)
+    );
+}
+
+.decor-4 {
+  width: 100px;
+  height: 48px;
+
+  left: 146px;
+  bottom: -8px;
+
+  opacity: 0.55;
+}
+
+.decor-5 {
+  width: 76px;
+  height: 38px;
+
+  left: 276px;
+  bottom: -13px;
+
+  opacity: 0.4;
+}
+
+
+/*
+ * Fine diagonal lines
+ */
+
+.hero-background::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    repeating-linear-gradient(
+      145deg,
+      transparent 0,
+      transparent 52px,
+      rgba(87, 139, 190, 0.07) 53px,
+      transparent 54px
+    );
+
+  opacity: 0.5;
+}
+
+
+/*
+ * Small glowing dots
+ */
+
+.star {
+  position: absolute;
+
+  width: 3px;
+  height: 3px;
+
+  border-radius: 50%;
+
+  background: #4c91b8;
+
+  box-shadow:
+    0 0 6px rgba(51, 168, 214, 0.6);
+}
+
+.star-1 {
+  top: 55px;
+  left: 47%;
+}
+
+.star-2 {
+  top: 95px;
+  left: 55%;
+}
+
+.star-3 {
+  top: 76px;
+  left: 73%;
+}
+
+.star-4 {
+  top: 130px;
+  left: 83%;
+}
+
+.star-5 {
+  top: 41px;
+  left: 68%;
+}
+
+.star-6 {
+  top: 158px;
+  left: 61%;
+}
+
+
+/* =========================================================
+   HERO CONTENT
+   ========================================================= */
+
+.hero-content {
+  position: absolute;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  min-height: 278px;
+
+  padding: 32px;
+
+  box-sizing: border-box;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(24, 34, 48, 0.78),
+      rgba(27, 37, 51, 0.98)
+    );
+}
+
+
+.hero-content h1 {
+  margin: 0;
+
+  max-width: 700px;
+
+  font-size: 36px;
+  line-height: 1.08;
+
+  font-weight: 700;
+
+  letter-spacing: -1.15px;
+
+  color: #f5f7fb;
+}
+
+.hero-content h1 span {
+  display: inline;
+}
+
+
+.hero-content p {
+  margin: 18px 0 24px;
+
+  max-width: 690px;
+
+  font-size: 15px;
+  line-height: 1.65;
+
+  font-weight: 400;
+
+  letter-spacing: 0.1px;
+
+  color: #8d9aaf;
+}
+
+
+/* =========================================================
+   HERO ACTIONS
+   ========================================================= */
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  flex-wrap: wrap;
+}
+
+
+/*
+ * Sample button
+ */
+
+.sample-button {
+  height: 45px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 9px;
+
+  padding: 0 17px;
+
+  border: 0;
+  border-radius: 11px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #3476ff,
+      #2865e6
+    );
+
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 5px 16px rgba(29, 93, 231, 0.18);
+
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    filter 0.18s ease;
+}
+
+.sample-button:hover {
+  transform: translateY(-1px);
+
+  filter: brightness(1.08);
+
+  box-shadow:
+    0 8px 22px rgba(29, 93, 231, 0.28);
+}
+
+.sample-button:active {
+  transform: translateY(0);
+}
+
+.sample-button:focus-visible {
+  outline: 2px solid #6ea0ff;
+  outline-offset: 3px;
+}
+
+
+.sparkle-icon {
+  font-size: 19px;
+
+  line-height: 1;
+
+  transform: translateY(-1px);
+}
+
+
+/*
+ * Repository URL
+ */
+
+.repository-url {
+  min-height: 45px;
+
+  display: inline-flex;
+  align-items: center;
+
+  padding: 0 17px;
+
+  box-sizing: border-box;
+
+  border-radius: 22px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #263f6a,
+      #20395f
+    );
+
+  color: #e7edf8;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  white-space: nowrap;
+
+  border: 1px solid rgba(80, 118, 178, 0.18);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.025);
+}
+
+
+/* =========================================================
+   RIGHT SIDE
+   ========================================================= */
+
+.side-content {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 24px;
+
+  min-width: 0;
+}
+
+
+/* =========================================================
+   INFO CARDS
+   ========================================================= */
+
+.info-card {
+  border: 1px solid var(--border);
+
+  border-radius: 12px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #1b2432,
+      #1c2534
+    );
+
+  box-sizing: border-box;
+
+  padding: 22px 20px;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.012);
+}
+
+
+.info-card h2 {
+  margin: 0 0 20px;
+
+  color: #f1f4f9;
+
+  font-size: 18px;
+  line-height: 1.25;
+
+  font-weight: 700;
+
+  letter-spacing: -0.3px;
+}
+
+
+/* =========================================================
+   STEPS
+   ========================================================= */
+
+.steps-card {
+  min-height: 238px;
+}
+
+
+.steps-list {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 16px;
+}
+
+
+.step {
+  display: grid;
+
+  grid-template-columns: 32px minmax(0, 1fr);
+
+  align-items: start;
+
+  gap: 12px;
+}
+
+
+.step-number {
+  width: 32px;
+  height: 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background:
+    linear-gradient(
+      135deg,
+      #294c8c,
+      #1e3d76
+    );
+
+  color: #eef4ff;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  box-sizing: border-box;
+}
+
+
+.step-text {
+  padding-top: 6px;
+
+  color: #d9dee7;
+
+  font-size: 13px;
+  line-height: 1.45;
+
+  font-weight: 400;
+}
+
+
+/* =========================================================
+   CHECKLIST
+   ========================================================= */
+
+.checklist-card {
+  min-height: 274px;
+}
+
+
+.checklist {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 15px;
+}
+
+
+.check-item {
+  display: flex;
+
+  align-items: center;
+
+  gap: 13px;
+
+  color: #d9dee7;
+
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+
+.check-icon {
+  width: 27px;
+  height: 27px;
+
+  flex: 0 0 27px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  border: 2px solid #009bbd;
+
+  border-radius: 50%;
+
+  color: #00a7ca;
+
+  background: rgba(0, 142, 176, 0.035);
+}
+
+
+.check-icon svg {
+  width: 17px;
+  height: 17px;
+
+  display: block;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .review-section {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-card {
+    min-height: 500px;
+  }
+
+  .side-content {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    align-items: stretch;
+  }
+}
+
+
+@media (max-width: 650px) {
+  .review-section {
+    padding: 14px;
+
+    gap: 16px;
+  }
+
+  .hero-card {
+    min-height: 540px;
+  }
+
+  .hero-content {
+    padding: 26px 22px;
+  }
+
+  .hero-content h1 {
+    font-size: 29px;
+    line-height: 1.12;
+  }
+
+  .hero-content p {
+    font-size: 14px;
+
+    margin-top: 16px;
+    margin-bottom: 22px;
+  }
+
+  .hero-actions {
+    align-items: stretch;
+
+    flex-direction: column;
+  }
+
+  .sample-button,
+  .repository-url {
+    width: 100%;
+  }
+
+  .repository-url {
+    justify-content: center;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+  }
+
+  .side-content {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 16px;
+  }
+}
+
+
+@media (max-width: 420px) {
+  .review-section {
+    padding: 10px;
+  }
+
+  .hero-card {
+    min-height: 570px;
+  }
+
+  .hero-content {
+    padding: 22px 18px;
+  }
+
+  .hero-content h1 {
+    font-size: 26px;
+  }
+
+  .info-card {
+    padding: 20px 17px;
+  }
+
+  .info-card h2 {
+    font-size: 17px;
+  }
+}
