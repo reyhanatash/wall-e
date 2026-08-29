@@ -11,6 +11,7 @@ import { CommonModule, JsonPipe } from '@angular/common';
   templateUrl: './review.component.html',
   styleUrls: ['./review.component.css'],
   imports: [CommonModule],
+  standalone: true
 })
 export class ReviewWorkspaceComponent {
   repositoryUrl = 'https://github.com/reyhanatash/wall-e';

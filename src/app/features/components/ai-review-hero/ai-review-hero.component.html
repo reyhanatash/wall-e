@@ -1,118 +1,122 @@
-<section class="review-section">
+<div class="page-shell">
+  <div class="workspace-card">
+    <section class="review-section">
 
-  <!-- Main Hero Card -->
-  <div class="hero-card">
+      <!-- Main Hero Card -->
+      <div class="hero-card">
 
-    <!-- Decorative background -->
-    <div class="hero-background">
-      <div class="decor decor-1"></div>
-      <div class="decor decor-2"></div>
-      <div class="decor decor-3"></div>
-      <div class="decor decor-4"></div>
-      <div class="decor decor-5"></div>
+        <!-- Decorative background -->
+        <div class="hero-background">
+          <div class="decor decor-1"></div>
+          <div class="decor decor-2"></div>
+          <div class="decor decor-3"></div>
+          <div class="decor decor-4"></div>
+          <div class="decor decor-5"></div>
 
-      <span class="star star-1"></span>
-      <span class="star star-2"></span>
-      <span class="star star-3"></span>
-      <span class="star star-4"></span>
-      <span class="star star-5"></span>
-      <span class="star star-6"></span>
-    </div>
-
-    <!-- Hero content -->
-    <div class="hero-content">
-
-      <h1>
-        Run AI repository reviews with
-        <span>prompt-to-line traceability</span>
-      </h1>
-
-      <p>
-        Paste a repository URL, tailor your prompt, and inspect
-        code-quality findings with a clear 0–10 score and
-        line-by-line guidance.
-      </p>
-
-      <div class="hero-actions">
-
-        <button
-          type="button"
-          class="sample-button"
-          (click)="trySampleRepository()"
-        >
-          <span class="sparkle-icon">✧</span>
-          <span>Try sample repository</span>
-        </button>
-
-        <div class="repository-url">
-          https://github.com/acme/review-sample
+          <span class="star star-1"></span>
+          <span class="star star-2"></span>
+          <span class="star star-3"></span>
+          <span class="star star-4"></span>
+          <span class="star star-5"></span>
+          <span class="star star-6"></span>
         </div>
 
-      </div>
+        <!-- Hero content -->
+        <div class="hero-content">
 
-    </div>
-  </div>
+          <h1>
+            Run AI repository reviews with
+            <span>prompt-to-line traceability</span>
+          </h1>
 
+          <p>
+            Paste a repository URL, tailor your prompt, and inspect
+            code-quality findings with a clear 0–10 score and
+            line-by-line guidance.
+          </p>
 
-  <!-- Right Side -->
-  <div class="side-content">
+          <div class="hero-actions">
 
-    <!-- First Review Card -->
-    <div class="info-card steps-card">
-
-      <h2>First review in 3 steps</h2>
-
-      <div class="steps-list">
-
-        <div
-          class="step"
-          *ngFor="let step of steps; let i = index"
-        >
-          <div class="step-number">
-            {{ i + 1 }}
-          </div>
-
-          <div class="step-text">
-            {{ step }}
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <!-- Checklist Card -->
-    <div class="info-card checklist-card">
-
-      <h2>Onboarding checklist</h2>
-
-      <div class="checklist">
-
-        <div
-          class="check-item"
-          *ngFor="let item of checklist"
-        >
-          <div class="check-icon">
-            <svg
-              viewBox="0 0 24 24"
-              aria-hidden="true"
+            <button
+              type="button"
+              class="sample-button"
+              (click)="trySampleRepository()"
             >
-              <path
-                d="M6 12.5l4 4L18 8.5"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
+              <span class="sparkle-icon">✧</span>
+              <span>Try sample repository</span>
+            </button>
+
+            <div class="repository-url">
+              https://github.com/acme/review-sample
+            </div>
+
           </div>
 
-          <span>{{ item }}</span>
+        </div>
+      </div>
+
+
+      <!-- Right Side -->
+      <div class="side-content">
+
+        <!-- First Review Card -->
+        <div class="info-card steps-card">
+
+          <h2>First review in 3 steps</h2>
+
+          <div class="steps-list">
+
+            <div
+              class="step"
+              *ngFor="let step of steps; let i = index"
+            >
+              <div class="step-number">
+                {{ i + 1 }}
+              </div>
+
+              <div class="step-text">
+                {{ step }}
+              </div>
+            </div>
+
+          </div>
+
         </div>
 
+
+        <!-- Checklist Card -->
+        <div class="info-card checklist-card">
+
+          <h2>Onboarding checklist</h2>
+
+          <div class="checklist">
+
+            <div
+              class="check-item"
+              *ngFor="let item of checklist"
+            >
+              <div class="check-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M6 12.5l4 4L18 8.5"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+
+              <span>{{ item }}</span>
+            </div>
+
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   </div>
-</section>
+</div>
