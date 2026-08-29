@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-ai-review-hero',
   standalone: true,
   templateUrl: './ai-review-hero.component.html',
-  styleUrls: ['./ai-review-hero.component.scss'],
+  styleUrls: ['./ai-review-hero.component.css'],
 })
 export class AiReviewHeroComponent {
   steps = [

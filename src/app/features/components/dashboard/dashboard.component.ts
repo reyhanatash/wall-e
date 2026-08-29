@@ -6,7 +6,8 @@ import { AiReviewHeroComponent } from '../ai-review-hero/ai-review-hero.componen
   selector: 'app-dashboard',
   imports: [AiReviewHeroComponent, ReviewWorkspaceComponent],
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css'
+  styleUrl: './dashboard.component.css',
+  standalone: true
 })
 export class DashboardComponent {
 

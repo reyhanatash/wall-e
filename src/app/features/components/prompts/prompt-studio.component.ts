@@ -7,13 +7,15 @@ import { Prompt } from '../../models/prompt.model';
 
 @Component({
   selector: 'app-prompt-studio',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, 
+    ReactiveFormsModule],
   templateUrl: './prompt-studio.component.html',
   styleUrl: './prompt-studio.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'd-block min-vh-100'
-  }
+  },
+  standalone: true
 })
 export class PromptStudioComponent {
   private readonly formBuilder = inject(FormBuilder);
