@@ -12,18 +12,23 @@ export class PromptStoreService {
   private readonly promptsState = signal<Prompt[]>([
     {
       id: 1,
-      title: 'Welcome Email Draft',
-      content: 'Write a warm welcome email for a new customer who just signed up for a 14-day free trial. Include a friendly greeting, 3 onboarding steps, and a helpful closing line.'
+      title: 'security',
+      content: ' Review this code as a senior application security engineer, focusing on OWASP Top 10 vulnerabilities, authentication/authorization, injection, data exposure, secrets, input validation, API security, insecure dependencies, and attack vectors; identify severity, explain the risk and exploitation scenario, and provide concrete secure fixes.'
     },
     {
       id: 2,
-      title: 'Meeting Summary Prompt',
-      content: 'Summarize the meeting notes into action items, decisions made, blockers, and owners. Use concise bullet points and keep the tone professional.'
+      title: 'lint',
+      content: 'Review this code as a strict linter: identify code-quality issues, bugs, bad practices, unused code, complexity, naming problems, maintainability issues, and violations of common language/framework best practices, and suggest concise fixes professional.'
     },
     {
       id: 3,
-      title: 'Social Post Generator',
-      content: 'Create 5 short social media post variations for a product launch. Use a confident tone, include a light call to action, and avoid hashtags unless clearly relevant.'
+      title: 'performance',
+      content: 'Review this code for performance issues, including unnecessary computation, inefficient algorithms, excessive memory usage, redundant API/database calls, unnecessary rendering, blocking operations, and scalability bottlenecks; identify the impact and suggest optimized solutions.'
+    },
+    {
+      id: 4,
+      title: 'code quality',
+      content: 'Review this code for code quality: identify code smells, duplication, unclear naming, unnecessary complexity, poor readability, SOLID violations, tight coupling, low cohesion, and maintainability issues; suggest clean, simple, and idiomatic improvements'
     }
   ]);
 
