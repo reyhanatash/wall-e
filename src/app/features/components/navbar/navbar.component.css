@@ -290,8 +290,8 @@
 }
 
 .brand-logo {
-  width: 120px;
-  height: auto;
+  width: auto;
+  height: 200px;
   object-fit: contain;
 }
 

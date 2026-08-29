@@ -9,8 +9,20 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     loadComponent: () =>
-      import('./features/components/dashbaord/dashbaord.component')
-        .then(m => m.DashbaordComponent)
+      import('./features/components/dashboard/dashboard.component')
+        .then(m => m.DashboardComponent)
+  },
+  {
+    path: 'prompts',
+    loadComponent: () =>
+      import('./features/components/prompts/prompt-studio.component')
+        .then(m => m.PromptStudioComponent)
+  },
+  {
+    path: 'review',
+    loadComponent: () =>
+      import('./features/components/review/review.component')
+        .then(m => m.ReviewWorkspaceComponent)
   },
   {
     path: '**',
