@@ -1,38 +1,76 @@
-import { Inject, Injectable, computed, signal } from '@angular/core';
+import { Injectable, computed, inject, signal } from '@angular/core';
 import { Prompt } from '../models/prompt.model';
 import { PromptApiService } from './prompt-api.service';
 import { PromptApiResponse } from '../models/PromptApiResponse';
 
-
 @Injectable({ providedIn: 'root' })
 export class PromptStoreService {
 
-  private readonly promptApi = Inject(PromptApiService);
+  private readonly promptApi = inject(PromptApiService);
 
   private readonly promptsState = signal<Prompt[]>([
     {
       id: 1,
       title: 'security',
-      content: ' Review this code as a senior application security engineer, focusing on OWASP Top 10 vulnerabilities, authentication/authorization, injection, data exposure, secrets, input validation, API security, insecure dependencies, and attack vectors; identify severity, explain the risk and exploitation scenario, and provide concrete secure fixes.'
+      content: `Find only real security vulnerabilities caused by added (+) lines.
+Check XSS/unsafe DOM or HTML, exposed secrets, auth/authorization flaws,
+unsafe URLs/APIs, injection, and client-side security bypasses.
+No speculation, generic advice, style, or code-quality issues.
+If the diff does not prove the vulnerability, return no finding.`
     },
     {
       id: 2,
-      title: 'lint',
-      content: 'Review this code as a strict linter: identify code-quality issues, bugs, bad practices, unused code, complexity, naming problems, maintainability issues, and violations of common language/framework best practices, and suggest concise fixes professional.'
+      title: 'performance',
+      content: `Find only real performance problems caused by added (+) lines.
+Check expensive repeated work, Angular rendering/change detection,
+RxJS misuse, memory leaks, repeated requests, expensive templates,
+and inefficient loops/data processing.
+No micro-optimizations or theoretical concerns.
+If the diff does not show a concrete performance impact, return no finding.`
     },
     {
       id: 3,
-      title: 'performance',
-      content: 'Review this code for performance issues, including unnecessary computation, inefficient algorithms, excessive memory usage, redundant API/database calls, unnecessary rendering, blocking operations, and scalability bottlenecks; identify the impact and suggest optimized solutions.'
+      title: 'code-quality',
+      content: `Find only important maintainability problems caused by added (+) lines.
+Check meaningful duplication, dead code, unnecessary complexity,
+bad Angular/TypeScript structure, and redundancy with a real consequence.
+Do not report naming/style, formatting, harmless duplication,
+empty attributes/classes, or code that is merely unconventional.`
     },
     {
       id: 4,
-      title: 'code quality',
-      content: 'Review this code for code quality: identify code smells, duplication, unclear naming, unnecessary complexity, poor readability, SOLID violations, tight coupling, low cohesion, and maintainability issues; suggest clean, simple, and idiomatic improvements'
+      title: 'bug-risk',
+      content: `Find only real bugs caused by added (+) lines.
+Check wrong logic, conditions, null/undefined failures, state errors,
+async races, incorrect API usage, broken Angular bindings/expressions,
+and malformed structures that actually break behavior.
+The failure must be directly explainable from the diff.
+No speculation or "could be better" findings.`
+    },
+    {
+      id: 5,
+      title: 'ui-accessibility',
+      content: `Find only real UI, HTML, Angular, or accessibility problems caused by added (+) lines.
+Check malformed HTML, bad nesting, broken Angular syntax, label/control issues,
+inaccessible controls, incorrect ARIA/semantics, keyboard failures,
+and CSS/layout changes that actually break the UI.
+Void elements such as input, img, br, hr, meta and link must not have closing tags.
+Do not report empty attributes/classes, minimal inputs, cosmetic issues, or preferences.`
+    },
+    {
+      id: 6,
+      title: 'lint',
+      content: `Find only concrete lint violations in added (+) lines.
+Check TypeScript/Angular ESLint, template, HTML, CSS/SCSS rules,
+and syntax/patterns that a common lint rule would reliably reject.
+Do not invent project rules or report formatting, style, recommendations,
+empty attributes/classes, or harmless redundancy.
+If no reliable violation exists, return no finding.`
     }
   ]);
 
   readonly prompts = computed(() => this.promptsState());
+
   private readonly _prompts = signal<Prompt[]>([]);
 
   loadPrompts(): void {
@@ -57,6 +95,7 @@ export class PromptStoreService {
   savePrompt(prompt: Omit<Prompt, 'id'>, selectedId: number | null): Prompt {
     if (selectedId !== null) {
       let updatedPrompt: Prompt | null = null;
+
       this.promptsState.update((currentPrompts: Prompt[]) =>
         currentPrompts.map((currentPrompt: Prompt) => {
           if (currentPrompt.id === selectedId) {
@@ -76,10 +115,12 @@ export class PromptStoreService {
       }
     }
 
-    const nextId: number = this.promptsState().reduce(
-      (maxId: number, currentPrompt: Prompt) => Math.max(maxId, currentPrompt.id),
-      0
-    ) + 1;
+    const nextId: number =
+      this.promptsState().reduce(
+        (maxId: number, currentPrompt: Prompt) =>
+          Math.max(maxId, currentPrompt.id),
+        0
+      ) + 1;
 
     const newPrompt: Prompt = {
       id: nextId,
@@ -87,17 +128,28 @@ export class PromptStoreService {
       content: prompt.content
     };
 
-    this.promptsState.update((currentPrompts: Prompt[]) => [newPrompt, ...currentPrompts]);
+    this.promptsState.update(
+      (currentPrompts: Prompt[]) => [
+        newPrompt,
+        ...currentPrompts
+      ]
+    );
+
     return newPrompt;
   }
 
   deletePrompt(promptId: number): void {
     this.promptsState.update((currentPrompts: Prompt[]) =>
-      currentPrompts.filter((currentPrompt: Prompt) => currentPrompt.id !== promptId)
+      currentPrompts.filter(
+        (currentPrompt: Prompt) =>
+          currentPrompt.id !== promptId
+      )
     );
   }
 
   getPromptById(promptId: number): Prompt | undefined {
-    return this.promptsState().find((prompt: Prompt) => prompt.id === promptId);
+    return this.promptsState().find(
+      (prompt: Prompt) => prompt.id === promptId
+    );
   }
 }
