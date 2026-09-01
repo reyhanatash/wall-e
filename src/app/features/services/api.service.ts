@@ -23,6 +23,7 @@ export interface WallePrListResponse {
 }
 
 export interface WalleReviewRequest {
+  review_types:any;
   action: 'review';
   repo_url: string;
   branch: string;
@@ -34,6 +35,7 @@ export interface WalleReviewRequest {
   pr_body?: string;
   review_prompt?: string;
   auto_fix?: boolean;
+  fix_suggestion: boolean
 }
 
 @Injectable({

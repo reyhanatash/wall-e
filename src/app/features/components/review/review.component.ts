@@ -161,6 +161,12 @@ export class ReviewWorkspaceComponent {
     }
 
     const request: WalleReviewRequest = {
+      "review_types": [
+    "lint",
+    "performance",
+    "ui-accessibility"
+
+  ],
       action: 'review',
       repo_url: this.repositoryUrl,
       branch: this.branch,
@@ -172,6 +178,8 @@ export class ReviewWorkspaceComponent {
       pr_body: this.selectedPullRequest.body,
       review_prompt: this.reviewPrompt,
       auto_fix: this.retryFailedSteps,
+      fix_suggestion: true
+
     };
 
     this.isRunningReview = true;
