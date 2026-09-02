@@ -32,11 +32,11 @@ export class ReviewWorkspaceComponent {
     'Focus on null safety and defensive checks',
     'Flag security-sensitive file and auth flows',
     'Prioritize readability and maintainability',
-    'Look for unhandled async and race conditions',
+    'Look for unhandled async and race conditions'
   ];
 
   selectedChips = new Set<string>([
-    'Focus on null safety and defensive checks',
+    'Focus on null safety and defensive checks'
   ]);
 
   constructor(
@@ -117,7 +117,6 @@ export class ReviewWorkspaceComponent {
         },
         error: (error) => {
           this.isLoadingPullRequests = false;
-
           this.errorMessage =
             error?.error?.message ||
             'Failed to load pull requests.';
