@@ -12,13 +12,11 @@
 
       <div class="security-note">
         <div class="security-label">SECURITY NOTE</div>
-
         <div class="security-text">
           Repo tokens stay in memory only and are never persisted locally.
         </div>
       </div>
     </div>
-
 
     <div class="top-fields">
       <div class="field-group repo-field">
@@ -30,7 +28,6 @@
 
       <div class="field-group branch-field">
         <label>BRANCH</label>
-
         <div class="branch-box">
           <span class="branch-icon">⎇</span>
           <span class="branch-value">{{ branch }}</span>
@@ -50,7 +47,6 @@
           </div>
         </div>
 
-
         <button type="button" class="btn btn-warning my-3" (click)="loadPullRequests()" [disabled]="isLoadingPullRequests">
           {{
           isLoadingPullRequests
@@ -69,14 +65,12 @@
             <option value="" disabled>
               Select a Pull Request
             </option>
-
             <option *ngFor="let pr of pullRequests" [value]="pr.number">
               #{{ pr.number }} · {{ pr.title }}
             </option>
           </select>
         </div>
       </div>
-
 
       <div class="selected-pr" *ngIf="selectedPullRequest as pr">
         <div class="selected-pr-header">
@@ -193,7 +187,6 @@
             {{ strictness }} / 10
           </span>
         </div>
-
         <div class="slider-track-wrap">
           <input class="range-input" type="range" min="0" max="10" step="1" [value]="strictness"
             (input)="onStrictnessChange($any($event.target).value)" />
@@ -204,14 +197,12 @@
           </div>
         </div>
       </div>
-
       <button type="button" class="btn btn-warning" (click)="runReview()"
         [disabled]="isRunningReview || !selectedPullRequest">
 
         <span class="run-icon">
           ◎
         </span>
-
         {{
         isRunningReview
         ? 'Running AI Review...'
@@ -219,19 +210,14 @@
         }}
 
       </button>
-
     </div>
-
 
     <div class="error-message" *ngIf="errorMessage">
       {{ errorMessage }}
     </div>
 
-
     <div class="review-result" *ngIf="reviewResult">
-
       <div class="result-header">
-
         <div>
           <div class="result-title">
             Review Result
@@ -241,13 +227,8 @@
             AI-assisted analysis completed for the selected Pull Request.
           </div>
         </div>
-
       </div>
-
-
       <pre class="result-content">{{ reviewResult | json }}</pre>
-
     </div>
-
   </div>
 </div>
