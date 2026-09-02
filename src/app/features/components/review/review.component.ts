@@ -17,18 +17,14 @@ export class ReviewWorkspaceComponent {
   repositoryUrl = 'https://github.com/reyhanatash/wall-e';
   branch = 'main';
   authToken = '';
-
   reviewPrompt = 'Focus on null safety and defensive checks';
   strictness = 6;
   retryFailedSteps = true;
   isAdvancedOpen = true;
-
   pullRequests: WallePullRequest[] = [];
   selectedPullRequest: WallePullRequest | null = null;
-
   isLoadingPullRequests = false;
   isRunningReview = false;
-
   reviewResult: any = null;
   errorMessage = '';
 
@@ -85,7 +81,6 @@ export class ReviewWorkspaceComponent {
     } else {
       this.selectedChips.add(chip);
     }
-
     this.syncPromptFromChips();
   }
 
@@ -99,7 +94,6 @@ export class ReviewWorkspaceComponent {
       this.errorMessage = 'Repository URL is required.';
       return;
     }
-
     this.isLoadingPullRequests = true;
     this.errorMessage = '';
     this.pullRequests = [];
@@ -114,13 +108,8 @@ export class ReviewWorkspaceComponent {
       .subscribe({
         next: (response) => {
           console.log('WALL-E PR RESPONSE:', response);
-
           this.pullRequests = response.pull_requests || [];
-
-          console.log('WALL-E PULL REQUESTS:', this.pullRequests);
-
           this.isLoadingPullRequests = false;
-
           if (!this.pullRequests.length) {
             this.errorMessage =
               'No pull requests found for this repository.';
@@ -135,10 +124,9 @@ export class ReviewWorkspaceComponent {
         }
       });
   }
-
+  
   onPullRequestChange(value: string): void {
     const prNumber = Number(value);
-
     this.selectedPullRequest =
       this.pullRequests.find(
         pr => pr.number === prNumber
@@ -162,11 +150,10 @@ export class ReviewWorkspaceComponent {
 
     const request: WalleReviewRequest = {
       "review_types": [
-    "lint",
-    "performance",
-    "ui-accessibility"
-
-  ],
+        "lint",
+        "performance",
+        "ui-accessibility"
+      ],
       action: 'review',
       repo_url: this.repositoryUrl,
       branch: this.branch,
@@ -179,13 +166,11 @@ export class ReviewWorkspaceComponent {
       review_prompt: this.reviewPrompt,
       auto_fix: this.retryFailedSteps,
       fix_suggestion: true
-
     };
 
     this.isRunningReview = true;
     this.reviewResult = null;
     this.errorMessage = '';
-
     this.walleApiService
       .reviewPullRequest(request)
       .subscribe({
@@ -195,7 +180,6 @@ export class ReviewWorkspaceComponent {
         },
         error: (error) => {
           this.isRunningReview = false;
-
           this.errorMessage =
             error?.error?.message ||
             'Failed to run AI code review.';
