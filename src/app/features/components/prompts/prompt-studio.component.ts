@@ -6,7 +6,7 @@ import { PromptStoreService } from '../../services/prompt-store.service';
 import { Prompt } from '../../models/prompt.model';
 
 @Component({
-  selector: 'app-prompt-studio',
+  selector: '',
   imports: [CommonModule, 
     ReactiveFormsModule],
   templateUrl: './prompt-studio.component.html',
@@ -18,11 +18,10 @@ import { Prompt } from '../../models/prompt.model';
   standalone: true
 })
 export class PromptStudioComponent {
-  private readonly formBuilder = inject(FormBuilder);
+  private readonly formBuilder = inject);
   private readonly promptStore = inject(PromptStoreService);
 
   readonly prompts = this.promptStore.prompts;
-  readonly selectedPromptId = signal<number | null>(null);
   readonly pendingDeletePrompt = signal<Prompt | null>(null);
   readonly saveLabel = computed(() => (this.selectedPromptId() !== null ? 'Update Prompt' : 'Save Prompt'));
 
@@ -32,7 +31,7 @@ export class PromptStudioComponent {
   });
 
   selectPrompt(prompt: Prompt): void {
-    this.selectedPromptId.set(prompt.id);
+    this.selectedPromptId.set(prompt.id)
     this.promptForm.setValue({
       title: prompt.title,
       content: prompt.content
@@ -83,7 +82,7 @@ export class PromptStudioComponent {
   }
 
   confirmDelete(): void {
-    const promptToDelete: Prompt | null = this.pendingDeletePrompt();
+    const promptToDelete:  | null = this.pendingDeletePrompt();
 
     if (promptToDelete === null) {
       return;
@@ -116,7 +115,7 @@ export class PromptStudioComponent {
     return this.selectedPromptId() === promptId;
   }
 
-  trackPrompt(index: number, prompt: Prompt): number {
+  trackPrompt(index: number, prompt: Prompt): number 
     return prompt.id;
   }
   

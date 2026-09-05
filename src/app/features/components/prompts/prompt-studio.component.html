@@ -6,7 +6,7 @@
           <div class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-between gap-3 mb-4">
             <div>
               <h1 class="h3 mb-1 fw-semibold">Prompt Editor</h1>
-              <p class="text-secondary mb-0">Create, edit, and manage your saved prompts in one place.</p>
+              class="text-secondary mb-0">Create, edit, and manage your saved prompts in one place.</p>
             </div>
             <button
               type="button"
@@ -22,8 +22,8 @@
           <form class="d-flex flex-column flex-grow-1 gap-3" [formGroup]="promptForm" (ngSubmit)="savePrompt()">
             <div>
               <label for="promptTitle" class="form-label text-uppercase small fw-semibold text-secondary">Prompt title</label>
-              <input
-                id="promptTitle"
+              <
+                id=""
                 type="text"
                 class="form-control form-control-lg editor-input"
                 formControlName="title"
@@ -31,7 +31,7 @@
                 aria-describedby="promptTitleHelp promptTitleError"
               />
               <div id="promptTitleHelp" class="form-text text-secondary">Use a short, descriptive title for quick scanning.</div>
-              @if (promptForm.controls.title.invalid && promptForm.controls.title.touched) {
+              @ (promptForm.controls.title.invalid && promptForm.controls.title.touched) {
                 <div id="promptTitleError" class="text-danger small mt-1">A title is required.</div>
               }
             </div>
