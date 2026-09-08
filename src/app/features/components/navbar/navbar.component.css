@@ -4,11 +4,9 @@
   --navbar-bg: #111827;
   --navbar-bg-hover: #1f2937;
   --navbar-border: #374151;
-
   --text-primary: #ffffff;
   --text-secondary: #d1d5db;
   --text-muted: #9ca3af;
-
   --accent: #60a5fa;
   --accent-bg: #1e3a5f;
 }
@@ -21,14 +19,10 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-
   width: 100%;
-
   background-color: #111827 !important;
   color: #ffffff;
-
   border-bottom: 1px solid #374151;
-
   font-family:
     Inter,
     -apple-system,
@@ -39,10 +33,8 @@
     sans-serif;
 
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-
   -webkit-font-smoothing: antialiased;
 }
-
 
 /* ================================
    NAVBAR CONTAINER
@@ -51,18 +43,13 @@
 .navbar-inner {
   width: 100%;
   max-width: 1280px;
-
   height: 72px;
-
   margin: 0 auto;
   padding: 0 32px;
-
   display: flex;
   align-items: center;
-
   background-color: #111827;
 }
-
 
 /* ================================
    BRAND
@@ -71,13 +58,9 @@
 .brand {
   display: flex;
   align-items: center;
-
   gap: 14px;
-
   color: #ffffff !important;
-
   text-decoration: none;
-
   cursor: pointer;
 }
 
@@ -85,20 +68,16 @@
   color: #ffffff !important;
 }
 
-
 /* Brand name */
 
 .brand-name {
   color: #ffffff !important;
-
   font-size: 20px;
   font-weight: 700;
-
   line-height: 1;
-
   letter-spacing: -0.03em;
+  display: relative;
 }
-
 
 /* Brand description */
 
